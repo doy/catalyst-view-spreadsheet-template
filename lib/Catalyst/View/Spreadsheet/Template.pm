@@ -224,6 +224,13 @@ Parts of this code were paid for by
 
 =back
 
+=begin Pod::Coverage
+
+  render
+  template_file
+
+=end Pod::Coverage
+
 =cut
 
 1;
