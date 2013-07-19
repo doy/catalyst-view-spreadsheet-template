@@ -1,6 +1,7 @@
 package Catalyst::View::Spreadsheet::Template;
 use Moose;
 use namespace::autoclean;
+# ABSTRACT: render Spreadsheet::Template templates in Catalyst
 
 use Path::Class::File;
 use Try::Tiny;
@@ -9,10 +10,24 @@ use Spreadsheet::Template;
 
 extends 'Catalyst::View';
 
-has renderer => (
-    is  => 'rw',
-    isa => 'Spreadsheet::Template',
-);
+=head1 SYNOPSIS
+
+  package MyApp::View::Spreadsheet::Template;
+  use Moose;
+
+  extends 'Catalyst::View::Spreadsheet::Template';
+
+=head1 DESCRIPTION
+
+This module provides a L<Catalyst::View> for L<Spreadsheet::Template>.
+
+=cut
+
+=attr path
+
+Template search path. Defaults to C<< [ $c->path_to('root') ] >>.
+
+=cut
 
 has path => (
     traits    => ['Array'],
@@ -24,11 +39,23 @@ has path => (
     },
 );
 
+=attr processor_class
+
+The C<processor_class> to pass through to the L<Spreadsheet::Template> object.
+
+=cut
+
 has processor_class => (
     is      => 'ro',
     isa     => 'Str',
     default => 'Spreadsheet::Template::Processor::Xslate',
 );
+
+=attr writer_class
+
+The C<writer_class> to pass through to the L<Spreadsheet::Template> object.
+
+=cut
 
 has writer_class => (
     is      => 'ro',
@@ -36,16 +63,34 @@ has writer_class => (
     default => 'Spreadsheet::Template::Writer::XLSX',
 );
 
+=attr template_extension
+
+The extension to use for template files. Defaults to C<json>.
+
+=cut
+
 has template_extension => (
     is      => 'ro',
     isa     => 'Str',
     default => 'json',
 );
 
+=attr catalyst_var
+
+The variable name to use for the Catalyst context object in the template.
+Defaults to C<c>.
+
+=cut
+
 has catalyst_var => (
     is      => 'ro',
     isa     => 'Str',
     default => 'c',
+);
+
+has renderer => (
+    is  => 'rw',
+    isa => 'Spreadsheet::Template',
 );
 
 sub ACCEPT_CONTEXT {
@@ -127,5 +172,58 @@ sub _extension {
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
+
+=head1 BUGS
+
+No known bugs.
+
+Please report any bugs to GitHub Issues at
+L<https://github.com/doy/catalyst-view-spreadsheet-template/issues>.
+
+=head1 SEE ALSO
+
+L<Spreadsheet::Template>
+
+L<Catalyst::View::Excel::Template::Plus>
+
+=head1 SUPPORT
+
+You can find this documentation for this module with the perldoc command.
+
+    perldoc Catalyst::View::Spreadsheet::Template
+
+You can also look for information at:
+
+=over 4
+
+=item * MetaCPAN
+
+L<https://metacpan.org/release/Catalyst-View-Spreadsheet-Template>
+
+=item * RT: CPAN's request tracker
+
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Catalyst-View-Spreadsheet-Template>
+
+=item * Github
+
+L<https://github.com/doy/catalyst-view-spreadsheet-template>
+
+=item * CPAN Ratings
+
+L<http://cpanratings.perl.org/d/Catalyst-View-Spreadsheet-Template>
+
+=back
+
+=head1 SPONSORS
+
+Parts of this code were paid for by
+
+=over 4
+
+=item Socialflow L<http://socialflow.com>
+
+=back
+
+=cut
 
 1;
