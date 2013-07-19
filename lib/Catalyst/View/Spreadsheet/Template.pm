@@ -3,7 +3,7 @@ use Moose;
 use namespace::autoclean;
 # ABSTRACT: render Spreadsheet::Template templates in Catalyst
 
-use Path::Class::File;
+use Path::Class;
 use Try::Tiny;
 
 use Spreadsheet::Template;
