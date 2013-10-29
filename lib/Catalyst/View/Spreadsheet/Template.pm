@@ -137,7 +137,7 @@ sub render {
     my ($c) = @_;
 
     $self->renderer->render(
-        scalar($self->template_file($c)->slurp),
+        scalar($self->template_file($c)->slurp(iomode => '<:encoding(UTF-8)')),
         {
             %{ $c->stash },
             $self->catalyst_var => $c,
