@@ -1,6 +1,7 @@
 Revision history for Catalyst-View-Spreadsheet-Template
 
 {{$NEXT}}
+      - template files should be interpreted as utf8 (jasonshaev)
 
 0.01  2013-07-19
       - Initial release
